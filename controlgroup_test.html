@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/stheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body style="padding:0">
+            
+
+        <div data-role="controlgroup" data-type="horizontal" id="msvBtn">
+            <a id="fBtn" href="#" class="ui-btn ui-corner-all"></a>
+            <a id="sBtn" href="#" class="ui-btn ui-corner-all"></a>
+            <a id="tBtn" href="#" class="ui-btn ui-corner-all"></a>
+        </div>       
+
+        <script type="text/javascript">
+            $(document).on("pagecreate", function(){
+                fBtn.text(fName);
+                sBtn.text(sName);
+                tBtn.text(tName);
+            });
+
+            var msvBtn = $("#msvBtn");
+            var fBtn = $("#fBtn");
+            var sBtn = $("#sBtn");
+            var tBtn = $("#tBtn");
+
+            var disabled = false;
+            var mini = false;
+            var shadow = true;
+            var corners = true;
+            var theme = "a";
+            var type = "horizontal";
+            var fName = "thanks";
+            var sName = "gracias";
+            var tName = "dziekowanie";
+
+            var first_btn = true;
+            var second_btn = false;
+            var third_btn = false;
+            var selected = "";
+
+            function stateMachine(val){
+                if(typeof(val) =="string"){
+                    switch (val){
+                        case fName:
+                            first_btn = true;
+                            second_btn = false;
+                            third_btn = false;
+                            break;
+                        case sName:
+                            first_btn = false;
+                            second_btn = true;
+                            third_btn = false;
+                            break;
+                        case tName:
+                            first_btn = false;
+                            second_btn = false;
+                            third_btn = true;
+                            break;
+                        default:
+                            console.log("Undefined case statement...");
+                    } 
+                    selected = val;   
+                }
+                else{ console.log("Wrong select type in StateMachine..."); }
+            }           	
+
+            window.setTimeout( function(){
+            msvBtn.controlgroup({
+            	disabled: disabled,
+            	mini: mini,
+            	shadow: shadow,
+            	corners: corners,
+            	theme: theme,
+            	type: type
+            });
+            }, 5);
+
+            fBtn.click(function(){ 
+                stateMachine(fName);
+            	console.log("Selected value: "+ selected); 
+            });
+            sBtn.click(function(){  
+                stateMachine(sName);
+            	console.log("Selected value: "+ selected);
+            });
+            tBtn.click(function(){  
+                stateMachine(tName);
+            	console.log("Selected value: "+ selected);
+            });
+
+        </script>
+    </body>
+</html>	

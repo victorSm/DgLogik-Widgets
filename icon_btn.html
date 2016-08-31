@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+      
+      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+      <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+      <style>
+        body{  padding:0; }
+        input{ margin:0;
+               padding:0;
+        }
+        div{ margin:0;
+             padding:0;
+        }
+      </style>
+    </head>
+    <body>
+      <div>
+        <input id="hbtn" href="#" type="button" data-iconpos="notext">
+      </div>
+
+        <script type="text/javascript" src="dgframe.js"></script>
+        <script type="text/javascript">
+          
+          var hbtn = $("#hbtn");
+          
+          var theme = "a";
+          var icon = "gear";
+          var click = false;
+
+          hbtn.button({
+            theme: "a",
+            icon: "gear",
+          });
+
+          var dgParams = {
+            "theme": function(val){
+              if(typeof(val) == "string")
+              { 
+                theme = val; 
+                hbtn.button("option", "theme", theme).button("refresh");
+              }
+            },
+            "icon": function(val){
+              if(typeof(val) == "string"){
+                icon = val;
+                hbtn.button("option", "icon", icon).button("refresh");
+              }
+            },
+            "click": function(val){
+                if(typeof(val) == "boolean"){ click = val; }
+            }         
+          }; 
+
+          hbtn.click(function(){
+            console.log("icon_btn clicked...");
+            dgUpdateParams({'click': true});
+            window.setTimeout(function(){ dgUpdateParams({'click': false}); }, 500);
+          });
+
+        </script>
+    </body>
+</html> 

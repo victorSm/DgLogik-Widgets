@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    	<style>
+    	  body{  padding:0; }
+    	  span{ font-size: medium;}
+    	  div{height:2em;
+    	      overflow:hidden;
+    	     }    
+    	</style>
+    </head>
+    <body>
+
+        <div class="ui-bar" data-role="header" id="bar">
+          <span></span>
+        </div>
+
+        <script type="text/javascript" src="dgframe.js"></script>
+        <script type="text/javascript">
+
+          var bar = $("#bar");
+          var obtn = $("#obtn");
+
+          var value = "";
+          var theme = "a";
+
+          bar.toolbar({
+            theme: "a",
+          });
+
+          var dgParams = {
+            "value": function(val){
+              if(typeof(val) == "string")
+              { 
+                value = val; 
+                $("span").html(value);
+              }
+            },
+            "theme": function(val){
+              if(typeof(val) == "string")
+              { 
+                theme = val; 
+                bar.toolbar("option", "theme", theme).toolbar("refresh");
+              }
+            },
+          };
+
+        </script>
+    </body>
+</html>	

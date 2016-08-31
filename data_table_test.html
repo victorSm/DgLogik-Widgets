@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/atheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body style="padding:0">
+    	<div style="margin:0" data-role="page">
+    		<div data-role="header">
+         		<h3 id="header">VAV Stats</h3> 
+    		</div>
+    		<div data-role="content">
+  				<table data-role="table" data-mode="columntoggle" id="table-column-toggle"  class="ui-responsive table-stripe" data-column-btn-theme="b" data-column-btn-text="Columns">
+     				<thead>
+     					<tr>
+         					<th>Location</th>
+         					<th data-priority="1">Discharge Air Temperature</th>
+         					<th data-priority="2">Supply Air Temperature</th>
+         					<th data-priority="3">Airflow</th>
+         					<th data-priority="4">Damper Position</th>
+         					<th data-priority="5">Terminal Load</th>
+       					</tr>
+     				</thead>
+     				<tbody>
+       					<tr>
+         					<th>1stFloor_vav01</th>
+         					<td>58&#8457</td>
+         					<td>59&#8457</td>
+         					<td>800cfm</td>
+         					<td>93%<a data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-mini="true"></a></td>
+         					<td>87%</td>
+       					</tr>
+       					<tr>
+         					<th>1stFloor_vav02</th>
+         					<td>57&#8457</td>
+         					<td>57&#8457</td>
+         					<td>1200cfm</td>
+         					<td>78%<a data-role="button" data-icon="gear" data-iconpos="notext" data-inline="true" data-mini="true"></a></td>
+         					<td>100%</td>
+       					</tr>
+
+     				</tbody>
+   				</table>      
+    		</div>
+		</div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            });  
+
+        </script>
+
+    </body>
+</html>	

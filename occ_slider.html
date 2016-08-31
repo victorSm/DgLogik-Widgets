@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+          <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>    
+        <script>
+            $(document).on("mobileinit", function(){
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            });
+        </script>       
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+    	<div class="ui-field-contain" style="margin:2%">
+    		<input type="number" data-type="range" id="slide">
+    	</div>
+        
+        <script type="text/javascript" src="dgframe.js"></script> 
+
+        <script type="text/javascript">
+
+        	$(document).on("pagecreate", function(){
+        		console.log("pageinit...");
+        	});
+    		
+            var slider = $("#slide");
+           	var lastval;
+
+            var value = 72;
+           	var min = 65;
+           	var max = 80;
+           	var step = 1;
+           	var theme = "b";
+           	var track_theme = "b";
+           	var disabled = false;
+           	var highlight = true;
+           	var mini = false;
+            var display_handle = true;
+            var save = false;
+        
+           	slider.slider({
+               	create: function(){
+                	console.log("slider created...");
+                  slider.val(value);
+                	slider.attr("min", min);
+                	slider.attr("max", max);
+                 	slider.attr("step", step);
+                },
+                	
+                theme: theme,
+               	trackTheme: track_theme,
+               	highlight: highlight,
+               	disabled: disabled,
+               	mini: mini,
+
+               	start: function(){
+                 	console.log("slide start...last value: "+lastval);
+                	//lastval = slider.val();
+               	},
+                    
+                stop: function(){
+                 	var c = confirm("Save Value ?");
+                	if(c == true){
+                   		console.log("VALUE SAVED...."+ slider.val());
+                   		dgUpdateParams({"value": slider.val()});
+                   		window.setTimeout(function(){
+                   		  dgUpdateParams({"save": false});
+                   		}, 700);
+                   		lastval = slider.val();
+                 	}
+                  	else{
+                   		console.log("Chose not to save the value..."+slider.val());
+                   		slider.val(lastval).slider("refresh");
+                  		}    
+                }
+            });
+
+            function handle(bol){
+              if(bol == false){ $(".ui-slider-handle").css("display", "none"); }
+              else{ $(".ui-slider-handle").css("display", "inline"); }
+            }
+            
+            var dgParams = {
+                "theme": function(val){
+                    if(typeof(val) == "string"){
+                        theme = val;
+                        slider.slider("option", "theme", theme).slider("refresh");
+                    }
+                },
+                "track_theme": function(val){
+                    if(typeof(val) == "string"){
+                        track_theme = val;
+                        slider.slider("option", "tracktheme", track_theme).slider("refresh");
+                    }
+                },
+                "disabled": function(val){
+                    if(typeof(val) == "boolean"){
+                        disabled = val;
+                        slider.slider("option", "disabled", disabled).slider("refresh");
+                    }
+                },
+                "highlight": function(val){
+                    if(typeof(val) == "boolean"){
+                        highlight = val;
+                        slider.slider("option", "highlight", highlight).slider("refresh");
+                    }
+                },
+                "display_handle": function(val){
+                    if(typeof(val) == "boolean"){
+                        display_handle = val;
+                        handle(display_handle);
+                    }
+                },
+                "save": function(val){
+                  if(typeof(val) == "boolean"){
+                    save = val;
+                  }
+                }, 
+                "value": function(val){
+                    if(typeof(val) == "number"){
+                        value = val;
+                        slider.val(value).slider("refresh");
+                    }
+                },
+                "min": function(val){
+                    if(typeof(val) == "number"){
+                        min = val;
+                        slider.attr("min", min).slider("refresh");
+                    }
+                },
+                "max": function(val){
+                    if(typeof(val) == "number"){
+                        slider.attr("max", max).slider("refresh");
+                    }
+                },
+                "step": function(val){
+                    if(typeof(val) == "number"){
+                        slider.attr("step", step).slider("refresh");
+                    }
+                }
+            }            
+
+        </script> 
+    </body>
+</html>    

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style>
+            body{padding:0;}
+            .container .ui-slider{width: 8em;}
+        </style>
+    </head>
+    <body>
+        
+        <div class="container"></div>
+        <script type="text/javascript" src="dgframe.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).on("pagecreate", function(){
+                console.log("page init...");
+            });
+
+            var fswitch;
+  
+            var off_text = "Off";
+            var on_text = "On";    
+  
+            var theme = "a";
+            var disabled = false;
+            var highlight = true;
+            var mini = false;
+            var value = false;
+            var widget_width;
+        
+            window.setTimeout(function(){ 
+                 fswitch = $("<select data-role='slider'></select>").appendTo($(".container"));
+                $("<option value='false'>"+off_text+"</option>").appendTo(fswitch);
+                $("<option value='true'>"+on_text+"</option>").appendTo(fswitch);              
+            }, 3);
+
+            window.setTimeout(function(){
+                fswitch.slider({
+                    create: function(){
+                        console.log("fswitch created...");
+                    },
+                        
+                    theme: theme,
+                    highlight: highlight,
+                    disabled: disabled,
+                    mini: mini,
+
+                    start: function(){
+                        console.log("flip-switch 'start' value: "+fswitch.val());
+                    },
+                    
+                    stop: function(){
+                        console.log("flip-switch 'stop'...VALUE SAVED...."+ fswitch.val());   
+                        if(fswitch.val() == "true"){ dgUpdateParams({'value': true}); }
+                        else{ dgUpdateParams({'value': false}); }
+                    }
+                });
+            }, 5);
+
+            var dgParams = {
+                "theme": function(val){
+                    if(typeof(val) == "string"){
+                        theme = val;
+                        fswitch.slider("option", "theme", theme).slider("refresh");
+                    }
+                },
+                "disabled": function(val){
+                    if(typeof(val) == "boolean"){
+                        disabled = val;
+                        fswitch.slider("option", "disabled", disabled).slider("refresh");
+                    }
+                },
+                "highlight": function(val){
+                    if(typeof(val) == "boolean"){
+                        highlight = val;
+                        fswitch.slider("option", "highlight", highlight).slider("refresh");
+                    }
+                },
+                "value": function(val){
+                    if(typeof(val) == "boolean"){
+                        value = val;
+                        fswitch.val(value.toString()).slider("refresh");
+                    }
+                },
+                "widget_width": function(val){
+                    if(typeof(val) == "number"){
+                        widget_width = val;
+                        $(".container .ui-slider").css("width", widget_width.toString()+"em");
+                    }
+                },
+            } 
+
+        </script>
+    </body>
+</html>	

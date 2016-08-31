@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/atheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+        <style type="text/css">
+            body{ padding:0; }
+            .container .ui-slider-switch{ width: 12em; }
+        </style>
+
+    </head>
+    <body>
+        <div class="container">           
+        </div>
+
+        <script type="text/javascript">
+
+            $(document).on("pagecreate", function(){
+                console.log("page init...");
+            });
+
+  			var fswitch;
+            var theme = "a";
+            var off_text = "Occupied State";
+            var on_text = "Un-Occupied State";            
+            var disabled = false;
+            var highlight = true;
+            var mini = false;
+            var value = false;
+        	
+
+  			window.setTimeout(function(){
+      			fswitch = $("<select data-role='slider'></select>").appendTo($(".container"));
+  				$("<option value='false'>"+off_text+"</option>").appendTo(fswitch);
+  				$("<option value='true'>"+on_text+"</option>").appendTo(fswitch);
+  			}, 3);
+
+  			window.setTimeout(function(){
+            fswitch.slider({
+                create: function(){
+                    console.log("fswitch created...");
+                },
+                    
+                theme: theme,
+                highlight: highlight,
+                disabled: disabled,
+                mini: mini,
+
+
+                start: function(){
+                    console.log("flip-switch 'start' value: "+fswitch.val());
+                },
+                    
+                stop: function(){
+                    console.log("flip-switch 'stop'...VALUE SAVED...."+ fswitch.val());   
+                }
+            });
+        }, 5);
+
+            window.setInterval(function(){ 
+                if(fswitch.val()=="true"){ fswitch.val("false").slider("refresh"); }
+                else{ fswitch.val("true").slider("refresh"); }               
+                console.log("prog COV..."+fswitch.val());
+            }, 5000);                
+
+        </script>
+    </body>
+</html>	

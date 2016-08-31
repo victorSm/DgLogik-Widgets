@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/atheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+                $.mobile.slider.prototype.options.initSelector="#slide";
+                $(document).on("slidecreate", "#slide", function(){
+                    console.log("SLIDER CREATED...");
+                });
+                
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body style="padding:0">
+        
+        <div class="ui-field-contain" id="content">
+            <label for="slider">My Slider</label>
+            <input type='range' name='slider' id='slide' data-highlight='true' min='0' max='100' value='35'>
+        </div>
+
+        <script type="text/javascript">
+            $(document).on("pagecreate", function(){
+
+                var slider = $("#slide");
+
+                var theme = "b";
+                var track_theme = "c";
+                var disabled  = false;
+                var highlight = true;
+                var mini = false;
+                var display_handle = true;
+                var display_box = false;
+
+                var value = 48;
+                var min = 15;
+                var max = 150;
+
+                function box(bol){
+                	if(bol == false){ $(".ui-slider input").css("display", "none"); }
+                	else{ $(".ui-slider input").css("display", "inline"); }
+                }
+
+                function handle(bol){
+                	if(bol == false){ $(".ui-slider-handle").css("display", "none"); }
+                	else{ $(".ui-slider-handle").css("display", "inline"); }
+                }
+
+                $(document).on("slidestop", slider, function(){
+                    if(display_handle == true){
+                        var c = confirm("Save ?");
+                        if(c == true){
+                            console.log("VALUE SAVED...."+ slider.val());
+                            
+                            $("label").text("My New Label");
+                            slider.slider("option", "theme", theme).slider("refresh");
+                            slider.slider("option", "trackTheme", track_theme).slider("refresh");
+                            slider.slider("option", "disabled", disabled).slider("refresh");
+                            slider.slider("option", "highlight", highlight).slider("refresh");
+                            slider.slider("option", "mini", mini).slider("refresh");
+                            box(display_box);
+                            handle(display_handle);
+                    
+
+                            slider.val(value).slider("refresh");
+                            slider.attr("min", min).slider("refresh");
+                            slider.attr("max", max).slider("refresh");                        
+                        }
+                        else{console.log("Chose not to save the value...");}    
+                    }
+                });
+            });     
+
+        </script>
+    </body>
+</html>	

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    	<style>
+    	  body{ padding:0;}
+    	</style>
+    </head>
+    <body>
+    
+    <div class="ui-content">
+      <div class="ui-overlay-shadow ui-corner-all ui-content" id="ovrPopup" data-overlay-theme="b">       
+        <a href="#" data-role="button" id="closebtn" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+          <h3>Override</h3>  
+                 
+          <input id="doOvr" type="button" value="Override">
+          <input id="doAuto" type="button" value="Auto"> 
+          
+          <div data-role="fieldcontain"><label for="sfc_ovrHours">Hours</label>          
+            <input id="ovrHours" type="text" data-type="number">
+          </div>
+           
+          <div data-role="fieldcontain"><label for="sfc_ovrMins">Minutes</label>   
+            <input id="ovrMins" type="text" data-type="number">
+          </div>
+          
+          <div data-role="fieldcontain"><label for="sfc_ovrSecs">Seconds</label>   
+            <input id="ovrSecs" type="text" data-type="number">
+          </div>
+
+          <select id="ovrSwt" data-role="flipswitch">
+            <option value="false">Off</option>
+            <option value="true">On</option>
+          </select>     
+      </div>      
+    </div>
+
+        <script type="text/javascript" src="dgframe.js"></script>
+        <script type="text/javascript">
+
+          var closebtn = $("#closebtn");
+
+          var ovrSel = $("#doOvr");
+          var autoSel = $("#doAuto");
+          var w_hours = $("#ovrHours");
+          var w_mins = $("#ovrMins");
+          var w_secs = $("#ovrSecs");
+          var ovrSwt = $("#ovrSwt");
+
+          var override = false;
+          var auto = false;
+          var close = false;
+          var hours = 0;
+          var minutes = 0;
+          var seconds = 0;
+          var override_state = false;
+          var action = "auto"; 
+          
+          ovrSwt.flipswitch({
+            wrapperClass: "wrapper",
+          });
+
+          var dgParams = {   
+          	"override": function(val){
+          		if(typeof(val) == "boolean"){ override = val; }
+          	},
+          	"auto": function(val){
+          		if(typeof(val) == "boolean"){ auto = val; }
+          	},
+          	"close": function(val){
+          		if(typeof(val) == "boolean"){ close = val; }
+          	},     
+            "hours": function(val){
+                if(typeof(val) == "number"){ hours = val; }
+            },  
+            "minutes": function(val){
+                if(typeof(val) == "number"){ minutes = val; }
+            },
+            "seconds": function(val){
+                if(typeof(val) == "number"){ seconds = val; }
+            },
+            "override_state": function(val){
+                if(typeof(val) == "boolean"){ override_state = val; }
+            },
+            "action": function(val){
+            	if(typeof(val) == "string"){ action = val; }
+            }          
+          };
+
+          ovrSel.click(function(){
+            console.log("do_Override clicked...");
+            dgUpdateParams({'hours': w_hours.val()});
+            dgUpdateParams({'minutes': w_mins.val()});
+            dgUpdateParams({'seconds': w_secs.val()});
+            if(ovrSwt.val() == "true"){
+              dgUpdateParams({'override_state': true});
+            }
+            else{ dgUpdateParams({'override_state': false}); }
+            dgUpdateParams({'action': "override"});
+            dgUpdateParams({'override': true});
+            window.setTimeout(function(){ dgUpdateParams({'override': false});}, 300);
+          });
+
+          autoSel.click(function(){
+            console.log("do_Auto clicked...");
+            dgUpdateParams({'action': "auto"});
+            dgUpdateParams({'override_state': false});
+            dgUpdateParams({'hours': 0 });
+            dgUpdateParams({'minutes': 0 });
+            dgUpdateParams({'seconds': 0 });            
+            dgUpdateParams({'auto': true});
+            window.setTimeout(function(){ dgUpdateParams({'auto': false}); }, 300);
+          });
+
+          closebtn.click(function(){
+            console.log("Close button clicked...");
+            dgUpdateParams({'close': true});
+            window.setTimeout(function(){ dgUpdateParams({'close': false}); }, 300);
+          });
+
+        </script>
+    </body>
+</html>	

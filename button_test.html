@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/atheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+        <input type="button" id="link_btn" data-icon="back" data-theme="c" data-iconshadow="true"value="My Button">
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+                var name = "hello";
+                var icon = "gear";
+                var theme = "c";
+                var icon_position = "right";
+                var onclick = false;                
+                var disabled = false;
+                var corners = false;
+                var icon_shadow = true;
+                var inline = false;
+                var mini = false;
+                var shadow = false;
+
+                var btn = $("#link_btn");
+
+                btn.click(function(){
+                    console.log("link button clicked...");
+                    
+                    onclick = true;
+                    btn.attr("value", name).button("refresh");
+                    btn.button("option", "corners", corners).button("refresh");
+                    btn.button("option", "disabled", disabled).button("refresh");
+                    btn.button("option", "theme", theme).button("refresh");
+                    btn.button("option", "icon", icon).button("refresh");
+                    btn.button("option", "iconpos", icon_position).button("refresh");
+                    btn.button("option", "iconshadow", icon_shadow).button("refresh");
+                    btn.button("option", "inline", inline).button("refresh");
+                    btn.button("option", "mini", mini).button("refresh");
+                    btn.button("option", "shadow", shadow).button("refresh");
+
+                    console.log("onclick 1"+ onclick.toString());
+
+                    window.setTimeout(function(){
+                        onclick = false; 
+                        console.log("onclick 2"+ onclick.toString());
+                    }, 100);
+                });
+            });  
+        </script>
+    </body>
+</html>	

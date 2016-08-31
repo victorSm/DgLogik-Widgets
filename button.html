@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/sTheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>    
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>    	
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+    
+<!--************************************BUTTON MARKUP, MAKE THEME CHANGES HERE************************************************-->   
+        <input type="button" id="link_btn" value="My Button"/> 
+<!--**************************************************************************************************************************--> 
+        
+        <script type="text/javascript" src="dgframe.js"></script>
+        <script type="text/javascript">
+
+          var btn = $("#link_btn");
+          var name = "hello";
+          var icon = "gear";
+          var theme = "c";
+          var icon_position = "right";
+          var onclick = false;
+          var disabled = false;
+          var corners = false;
+          var icon_shadow = true;
+          var inline = false;
+          var mini = false;
+          var shadow = false;
+          var btn_opacity = 1.0;
+
+          var dgParams = {
+            "name": function(val){
+              if(typeof(val) == "string")
+              { 
+                name = val; 
+                btn.attr("value", name).button("refresh");
+              }
+            },
+            "icon": function(val){
+              if(typeof(val) == "string")
+              { 
+                icon = val; 
+                btn.button("option", "icon", icon).button("refresh");
+              }
+            },
+            "theme": function(val){
+              if(typeof(val) == "string")
+              { 
+                theme = val; 
+                btn.button("option", "theme", theme).button("refresh");
+              }
+            },
+            "icon_position": function(val){
+              if(typeof(val) == "string")
+              { 
+                icon_position = val; 
+                btn.button("option", "iconpos", icon_position).button("refresh");
+              }
+            },
+            "onclick": function(val){
+              if(typeof(val) == "boolean"){ onclick = val; }
+            },
+            "disabled": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                disabled = val; 
+                btn.button("option", "disabled", disabled).button("refresh");
+              }
+            },
+            "corners": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                corners = val; 
+                btn.button("option", "corners", corners).button("refresh");
+              }
+            },
+            "icon_shadow": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                icon_shadow = val; 
+                btn.button("option", "icon_shadow", icon_shadow).button("refresh");
+              }
+            },
+            "inline": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                inline = val; 
+                btn.button("option", "inline", inline).button("refresh");
+              }
+            },
+            "mini": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                mini = val; 
+                btn.button("option", "mini", mini).button("refresh");
+              }
+            },
+            "shadow": function(val){
+              if(typeof(val) == "boolean")
+              { 
+                shadow = val; 
+                btn.button("option", "shadow", shadow).button("refresh");
+              }
+            },
+            "btn_opacity": function(val){
+              if(typeof(val) == "number"){
+                btn_opacity = val;
+                btn.css("opacity", val);
+              }
+            },
+          };
+
+          btn.click(function(){
+            console.log("link button clicked...");
+            dgUpdateParams({'onclick': true});
+            window.setTimeout(function(){ dgUpdateParams({'onclick': false}); }, 100);
+          });          
+        </script>
+    </body>
+</html>	

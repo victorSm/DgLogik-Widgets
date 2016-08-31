@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="themes/atheme.min.css" />
+        <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    	
+    	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+        <script>
+            $(document).on("mobileinit", function()
+            {
+                $.mobile.hashListeningEnabled = false;
+                $.mobile.pushStateEnabled = false;
+            })
+        </script>
+    	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body style="padding:0">
+        
+        <input type="checkbox" id="fswitch" data-role="flipswitch">
+
+        <script type="text/javascript">
+
+            var fswitch = $("#fswitch");
+
+            var theme = "a";
+            var off_text = "Off";
+            var on_text = "On";
+            var mini = false;
+            var corners = true;
+            var disabled = false;
+
+
+            $(document).on("pagecreate", function(){
+                console.log("page init...");
+            });
+
+            fswitch.flipswitch({
+                theme: theme,
+                offText: off_text,
+                onText: on_text,
+                mini: mini,
+                corners: corners,
+                disabled: disabled,
+
+                create: function(){ 
+                            console.log("flipswitch created...");
+                            console.log("Value: "+ fswitch.val());
+                 }
+            });
+
+            fswitch.click( function(){
+                console.log("Value: "+ fswitch.val());
+            });            
+
+        </script>
+    </body>
+</html>	
